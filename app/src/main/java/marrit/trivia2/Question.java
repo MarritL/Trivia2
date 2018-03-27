@@ -9,21 +9,22 @@ public class Question {
     private String mCorrectAnswer;
     private Integer mValue;
 
-    {
+    /*{
         //instance initializer; runs before any constructor
         mId = null;
         mQuestion = "";
         //mAnswers = "";
         mCorrectAnswer = "";
         mValue = 0;
-    }
+    }*/
 
-    /*// constructor
-    public Question(String question, String[] answers, String correctAnswer) {
+    // constructor
+    public Question(String question, String correctAnswer, int value) {
         mQuestion = question;
         //mAnswers = answers;
         mCorrectAnswer = correctAnswer;
-    }*/
+        mValue = value;
+    }
 
     // empty constructor
     public Question(){

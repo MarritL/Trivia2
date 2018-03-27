@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,6 +45,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
         ButtonFirstCategory.setTag(firstCategory.getNumber());
         ButtonSecondCategory.setText(secondCategory.getCategory());
         ButtonSecondCategory.setTag(secondCategory.getNumber());
+        System.out.println("CATEGORIESACTIVITY number of category is " + secondCategory.getNumber());
 
         // set on click listeners
         ButtonFirstCategory.setOnClickListener(new onButtonClickListener());
@@ -54,6 +56,8 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
     @Override
     public void gotError(String message) {
 
+        Toast.makeText(CategoriesActivity.this, message, Toast.LENGTH_SHORT).show();
+
     }
 
     class onButtonClickListener implements View.OnClickListener {
@@ -63,6 +67,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
             // go to GameActivity
             Intent intent = new Intent(CategoriesActivity.this, GameActivity.class);
             intent.putExtra("NUMBER", view.getTag().toString());
+            System.out.println("CATEGORIESACTIVITY number is " + view.getTag().toString());
             CategoriesActivity.this.startActivity(intent);
 
         }

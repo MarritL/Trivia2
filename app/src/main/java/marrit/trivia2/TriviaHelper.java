@@ -40,7 +40,10 @@ public class TriviaHelper {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
-        String mUrl = "http://jservice.io/api/random?count=5";
+        //String mUrl = "http://jservice.io/api/random?count=5";
+        String mUrl = "http://jservice.io/api/clues?category="+ category;
+        System.out.println("TRIVIAHELPER number is " + category);
+        System.out.println("TRIVIAHELPER url is " + mUrl);
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
@@ -57,36 +60,33 @@ public class TriviaHelper {
                                 System.out.println(i);
                                 JSONObject question = response.getJSONObject(i);
 
-                                Question theQuestion = new Question();
+
                                 String mQuestion = question.getString("question");
                                 String mAnswer = question.getString("answer");
                                 Integer mValue = question.getInt("value");
 
-                                theQuestion.setQuestion(mQuestion);
-                                theQuestion.setCorrectAnswer(mAnswer);
-                                theQuestion.setValue(mValue);
+                                Question theQuestion = new Question(mQuestion, mAnswer, mValue);
+
 
                                 mQuestionsArray.add(theQuestion);
 
-                                //activity.gotQuestion(theQuestion);
-                                mCallback.gotQuestion(mQuestionsArray);
+
+
                             }
                         } catch (JSONException e) {
                             System.out.println("JSONException: " + e.getMessage());
                         }
 
-
+                        mCallback.gotQuestion(mQuestionsArray);
                         //activity.gotQuestion(question);
                     }
                 }, new Response.ErrorListener() {
 
+                    // Handle error
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        System.out.println("Error: " + error.getMessage());
-                        //activity.gotError(error.getMessage());
-                        mCallback.gotError(error.getMessage());
 
+                        mCallback.gotError(error.getMessage());
 
                     }
                 });

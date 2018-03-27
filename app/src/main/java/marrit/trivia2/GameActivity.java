@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         Intent intent = getIntent();
         //String categoryNumber = intent.getStringExtra("NUMBER");
         Integer categoryNumber = Integer.valueOf(intent.getStringExtra("NUMBER"));
+        System.out.println("GAMEACTIVITY number is: " + categoryNumber);
 
         // Load question
         TriviaHelper triviaHelper = new TriviaHelper(this);

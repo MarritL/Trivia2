@@ -58,7 +58,7 @@ public class CategoriesHelper {
                                 JSONObject category = response.getJSONObject(i);
 
                                 String mCategory = category.getString("title");
-                                int mId = category.getInt("clues_count");
+                                int mId = category.getInt("id");
 
                                 Category theCategory = new Category(mCategory, mId);
 
