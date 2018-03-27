@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Trivia2</string>
+
+    <!-- Strings related to GameActivity -->
+    <string name="next_question">Next</string>
+    <string name="hint_answer">Your answer</string>
+    <string name="error_loading">Error loading questions</string>
+
+    <!-- Strings related to CategoriesActivity -->
+    <string name="choose_cat">Choose your category</string>
+
+
+</resources>
