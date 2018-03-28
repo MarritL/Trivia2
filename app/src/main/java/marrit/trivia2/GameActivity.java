@@ -33,10 +33,6 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         Bundle extras = intent.getExtras();
         Integer categoryNumber = Integer.valueOf(extras.getString("NUMBER"));
         mScore = extras.getInt("SCORE");
-        //Integer categoryNumber = Integer.valueOf(intent.getStringExtra("NUMBER"));
-
-        //  initiate score
-        //mScore = 0;
 
         // Load question
         TriviaHelper triviaHelper = new TriviaHelper(this);
@@ -137,6 +133,13 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
             else {
                 // do something else
                 Toast.makeText(GameActivity.this,"wrong", Toast.LENGTH_SHORT).show();
+
+                // Go to highscore activity
+                Intent intent = new Intent(GameActivity.this, HighScoreActivity.class);
+                Bundle extras = new Bundle();
+                extras.putInt("SCORE", mScore);
+                intent.putExtras(extras);
+                GameActivity.this.startActivity(intent);
             }
 
         }

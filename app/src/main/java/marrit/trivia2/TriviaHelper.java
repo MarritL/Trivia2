@@ -1,8 +1,6 @@
 package marrit.trivia2;
 
 import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -69,9 +67,6 @@ public class TriviaHelper {
                                     mValue = question.getInt("value");
                                 }
 
-
-
-
                                 Question theQuestion = new Question(mQuestion, mAnswer, mValue);
 
                                 mQuestionsArray.add(theQuestion);
@@ -80,7 +75,6 @@ public class TriviaHelper {
                                 mAnswersArray.add(mAnswer);
                             }
 
-                            // todo: what to do when execption value is null
                         } catch (JSONException e) {
                             System.out.println("JSONException: " + e.getMessage());
                         }

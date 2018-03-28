@@ -9,5 +9,9 @@
     <!-- Strings related to CategoriesActivity -->
     <string name="choose_cat">Choose your category</string>
 
+    <!-- Strings related to HighScoreActivity -->
+    <string name="empty_list">There are no highscores yet</string>
+    <string name="highscore">Highscore</string>
+
 
 </resources>
