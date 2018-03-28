@@ -1,6 +1,8 @@
 package marrit.trivia2;
 
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 public class TriviaHelper {
     public interface Callback {
-        void gotQuestion(ArrayList<Question> questionArrayList);
+        void gotQuestion(ArrayList<Question> questionArrayList, ArrayList<String> answerArrayList);
         void gotError(String message);
         /*void gotCategories(ArrayList<String> categories);*/
 
@@ -40,11 +42,7 @@ public class TriviaHelper {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
-        //String mUrl = "http://jservice.io/api/random?count=5";
         String mUrl = "http://jservice.io/api/clues?category="+ category;
-        System.out.println("TRIVIAHELPER number is " + category);
-        System.out.println("TRIVIAHELPER url is " + mUrl);
-
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
@@ -52,46 +50,54 @@ public class TriviaHelper {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        System.out.println(response);
                         ArrayList<Question> mQuestionsArray = new ArrayList<>();
+                        ArrayList<String> mAnswersArray = new ArrayList<>();
 
                         try {
                             for (int i = 0; i < response.length(); i++) {
-                                System.out.println(i);
                                 JSONObject question = response.getJSONObject(i);
-
 
                                 String mQuestion = question.getString("question");
                                 String mAnswer = question.getString("answer");
-                                Integer mValue = question.getInt("value");
+
+                                // set default value on 100 if value not returned by API
+                                Integer mValue;
+                                if (question.isNull("value")) {
+                                    mValue = 100;
+                                }
+                                else {
+                                    mValue = question.getInt("value");
+                                }
+
+
+
 
                                 Question theQuestion = new Question(mQuestion, mAnswer, mValue);
 
-
                                 mQuestionsArray.add(theQuestion);
 
-
-
+                                // create an answers array to make questions multiple choice
+                                mAnswersArray.add(mAnswer);
                             }
+
+                            // todo: what to do when execption value is null
                         } catch (JSONException e) {
                             System.out.println("JSONException: " + e.getMessage());
                         }
 
-                        mCallback.gotQuestion(mQuestionsArray);
-                        //activity.gotQuestion(question);
+                        mCallback.gotQuestion(mQuestionsArray, mAnswersArray);
+
                     }
                 }, new Response.ErrorListener() {
 
                     // Handle error
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         mCallback.gotError(error.getMessage());
-
                     }
+
                 });
 
-        // Access the RequestQueue through your singleton class.
         queue.add(jsonArrayRequest);
 
 

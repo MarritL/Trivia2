@@ -32,15 +32,17 @@ public class CategoriesHelper {
         mContext = context;
     }
 
-    // request questions from API
+    // request categories from API
     void getCategories(Callback activity) {
 
         mCallback = activity;
 
         RequestQueue categoriesQueue = Volley.newRequestQueue(mContext);
 
+        // Make sure to get different categories every time (by using random offset)
         int offset = randInt(1, 18000);
 
+        // Request url for two categories
         String mUrl = "http://jservice.io/api/categories?offset="+ offset + "&count=2";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
@@ -72,7 +74,7 @@ public class CategoriesHelper {
                         }
 
                         mCallback.gotCategories(mCategoriesArray);
-                        //activity.gotQuestion(question);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -86,8 +88,9 @@ public class CategoriesHelper {
         categoriesQueue.add(jsonArrayRequest);
     }
 
-    // random integer generator from https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
-    private static int randInt(int min, int max) {
+    // random integer generator from
+    // https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
+    public static int randInt(int min, int max) {
 
         // Usually this can be a field rather than a method variable
         Random rand = new Random();

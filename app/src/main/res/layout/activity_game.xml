@@ -19,19 +19,29 @@
         android:layout_height="wrap_content"
         android:text="@string/error_loading"/>
 
-    <EditText
-        android:id="@+id/ET_answer"
+    <Button
+        android:id="@+id/button_answer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_answer"/>
+        android:layout_marginTop="16dp"/>
 
     <Button
-        android:id="@+id/Button_next_question"
+        android:id="@+id/button_answer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/next_question"/>
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/button_answer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/button_answer4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>
 

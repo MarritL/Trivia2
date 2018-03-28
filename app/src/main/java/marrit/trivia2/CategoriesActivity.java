@@ -14,6 +14,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
 
     Button ButtonFirstCategory;
     Button ButtonSecondCategory;
+    int mScore;
 
 
     @Override
@@ -21,12 +22,18 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+        Intent intent = getIntent();
+        if (intent == null) {
+            mScore = 0;
+        }
+        else {
+            mScore = intent.getIntExtra("SCORE", 0);
+        }
+
         // get categories from API
         CategoriesHelper categoriesHelper = new CategoriesHelper(this);
         categoriesHelper.getCategories(this);
     }
-
-
 
 
     @Override
@@ -45,7 +52,6 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
         ButtonFirstCategory.setTag(firstCategory.getNumber());
         ButtonSecondCategory.setText(secondCategory.getCategory());
         ButtonSecondCategory.setTag(secondCategory.getNumber());
-        System.out.println("CATEGORIESACTIVITY number of category is " + secondCategory.getNumber());
 
         // set on click listeners
         ButtonFirstCategory.setOnClickListener(new onButtonClickListener());
@@ -66,8 +72,11 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
 
             // go to GameActivity
             Intent intent = new Intent(CategoriesActivity.this, GameActivity.class);
-            intent.putExtra("NUMBER", view.getTag().toString());
-            System.out.println("CATEGORIESACTIVITY number is " + view.getTag().toString());
+            Bundle extras = new Bundle();
+            extras.putInt("SCORE", mScore);
+            extras.putString("NUMBER", view.getTag().toString());
+            //intent.putExtra("NUMBER", view.getTag().toString());
+            intent.putExtras(extras);
             CategoriesActivity.this.startActivity(intent);
 
         }
