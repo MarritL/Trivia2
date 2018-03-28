@@ -1,8 +1,11 @@
 package marrit.trivia2;
 
+import java.util.UUID;
+
 public class HighScore {
 
     // variables
+    //private UUID mUUID;
     private String mName;
     private int mHighScore;
 
@@ -12,6 +15,7 @@ public class HighScore {
 
     // constructor
     public HighScore(int highScore) {
+        //mUUID = UUID.randomUUID();
         mName = "Anonymous" ;
         mHighScore = highScore;
     }
@@ -23,6 +27,16 @@ public class HighScore {
     }*/
 
     // getters and setters
+
+
+    /*public UUID getUUID() {
+        return mUUID;
+    }
+
+    public void setUUID(UUID UUID) {
+        mUUID = UUID;
+    }*/
+
     public String getName() {
         return mName;
     }

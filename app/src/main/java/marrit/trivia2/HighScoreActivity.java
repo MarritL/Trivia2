@@ -34,7 +34,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         //HighScoreHelper highScoreHelper = new HighScoreHelper(this);
 
         // initiate variables
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("highScores");
 
         // put new highScore in database
         HighScore newHighScore = new HighScore(mScore);
@@ -49,10 +49,10 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
                 // get highscores
                 ArrayList<HighScore> highScoreArrayList = new ArrayList<>();
-                //for (DataSnapshot ds:dataSnapshot.child("highScores").getChildren()) {
                 for (DataSnapshot ds:dataSnapshot.getChildren()) {
-                    //HighScore highScore = ds.getValue(HighScore.class);
-                    HighScore highScore = ds.child("highScores").getValue(HighScore.class);
+                //for (DataSnapshot ds:dataSnapshot.getChildren()) {
+                    HighScore highScore = ds.getValue(HighScore.class);
+                    //HighScore highScore = dataSnapshot.child("highScores").getValue(HighScore.class);
                     highScoreArrayList.add(highScore);
                     Log.d("HIGHSCOREACTIVITY", "List is: " + highScoreArrayList);
                 }
@@ -81,7 +81,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
     void postHighScore(HighScore highScore) {
 
-        mDatabase.child("highScores").setValue(highScore);
+        mDatabase.push().setValue(highScore);
 
     }
 }
