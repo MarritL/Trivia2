@@ -23,16 +23,11 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <!--<ListView
-        android:id="@+id/android:list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>-->
-
-    <!--<TextView
-        android:id="@+id/android:empty"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/empty_list"/>-->
+    <Button
+        android:id="@+id/button_restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"/>
 
 
 </LinearLayout>

@@ -23,8 +23,14 @@ public class HighScoreHolder extends RecyclerView.ViewHolder {
     public void bind(HighScore highScore) {
 
         mHighScore = highScore;
+
+        // make score positive again (was needed for ordering the query)
+        int score = mHighScore.getHighScore();
+        score *= -1;
+
+        // display
+        mTVScore.setText(String.valueOf(score));
         mTVName.setText(mHighScore.getName());
-        mTVScore.setText(String.valueOf(mHighScore.getHighScore()));
 
     }
 

@@ -12,6 +12,7 @@
     <!-- Strings related to HighScoreActivity -->
     <string name="empty_list">There are no highscores yet</string>
     <string name="highscore">Highscore</string>
+    <string name="restart">Play Again!</string>
 
 
 </resources>

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -32,6 +33,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
     private DatabaseReference mDatabase;
     private RecyclerView mHighScoreRecyclerView;
     private FirebaseRecyclerAdapter adapter;
+    private Button mRestart;
 
 
     @Override
@@ -50,8 +52,13 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
         // initiate variables
         mDatabase = FirebaseDatabase.getInstance().getReference().child("highScores");
+        mRestart = findViewById(R.id.button_restart);
+
+        // attach listener
+        mRestart.setOnClickListener(new restartListener());
 
         // put new highScore in database
+        mScore *= -1;       // to get descending order back from query save as negative in database
         HighScore newHighScore = new HighScore(mScore);
         postHighScore(newHighScore);
 
@@ -217,6 +224,17 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
             }
         };
         mHighScoreRecyclerView.setAdapter(adapter);
+    }
+
+    // restart the game
+    private class restartListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(HighScoreActivity.this, CategoriesActivity.class);
+            HighScoreActivity.this.startActivity(intent);
+
+        }
     }
 
     @Override
