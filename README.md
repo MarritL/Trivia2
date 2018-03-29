@@ -7,7 +7,7 @@ When users answer these questions correctly they earn points. The game finishes 
 with their earned points. These points are contained in a leaderboard, which is stored in an online database Firebase.
 
 ## Screenshot
-![ScreenShot](https://github.com/MarritL/MarritLeenstra-pset5/blob/master/doc/Screenshot.png)
+![ScreenShot](https://github.com/MarritL/Trivia2/blob/master/Doc/Screenshot.png)
 
 ## Better Code Hub
 <img src='https://bettercodehub.com/edge/badge/MarritL/Trivia2?branch=master'>
