@@ -1,8 +1,8 @@
 package marrit.trivia2;
 
 class Question {
-    private String mQuestion;
-    private String mCorrectAnswer;
+    private final String mQuestion;
+    private final String mCorrectAnswer;
     private Integer mValue;
 
     // constructor

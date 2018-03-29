@@ -2,7 +2,7 @@ package marrit.trivia2;
 
 class Category {
 
-    private String mCategory;
+    private final String mCategory;
     private Integer mNumber;
 
     // constructor
