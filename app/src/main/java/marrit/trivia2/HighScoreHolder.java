@@ -24,7 +24,8 @@ public class HighScoreHolder extends RecyclerView.ViewHolder {
 
         mHighScore = highScore;
         mTVName.setText(mHighScore.getName());
-        mTVScore.setText(mHighScore.getHighScore());
+        mTVScore.setText("100");
 
     }
+
 }
