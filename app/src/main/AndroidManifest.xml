@@ -14,13 +14,15 @@
         <activity android:name=".GameActivity">
         </activity>
         <activity android:name=".CategoriesActivity">
+        </activity>
+        <activity android:name=".HighScoreActivity">
+        </activity>
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".HighScoreActivity">
         </activity>
     </application>
 

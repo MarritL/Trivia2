@@ -15,6 +15,9 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
     // variables
     TextView mTVQuestion;
+    TextView mUserScore;
+    TextView mUserName;
+    TextView mTVValue;
     Question question;
     Button mButtonAnswer1;
     Button mButtonAnswer2;
@@ -22,6 +25,8 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
     Button mButtonAnswer4;
     String mCorrectAnswer;
     int mScore;
+    String mScoreString;
+    String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,17 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         Bundle extras = intent.getExtras();
         Integer categoryNumber = Integer.valueOf(extras.getString("NUMBER"));
         mScore = extras.getInt("SCORE");
+        mName = extras.getString("USERNAME");
 
         // Load question
         TriviaHelper triviaHelper = new TriviaHelper(this);
         triviaHelper.getQuestion(this, categoryNumber );
 
+        // Initiate variables
+        mUserScore = findViewById(R.id.TV_userscore);
+        mUserScore.setText(String.valueOf(mScore));
+        mUserName = findViewById(R.id.TV_username);
+        mUserName.setText(mName);
 
     }
 
@@ -47,6 +58,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
         // Initiate variables
         mTVQuestion = findViewById(R.id.TV_question);
+        mTVValue = findViewById(R.id.TV_value);
         mButtonAnswer1 = findViewById(R.id.button_answer1);
         mButtonAnswer2 = findViewById(R.id.button_answer2);
         mButtonAnswer3 = findViewById(R.id.button_answer3);
@@ -64,9 +76,10 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
             GameActivity.this.startActivity(intent);
         }
 
-        // Display question
+        // Display question and it's value
         question = questionArrayList.get(0);
         mTVQuestion.setText(question.getQuestion());
+        mTVValue.setText(String.valueOf(question.getValue()));
         mCorrectAnswer = question.getCorrectAnswer();
 
         // create list with random answers (include the right answer)
@@ -126,7 +139,10 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
                 // choose category for next question
                 Intent intent = new Intent(GameActivity.this, CategoriesActivity.class);
-                intent.putExtra("SCORE", mScore);
+                Bundle extras = new Bundle();
+                extras.putInt("SCORE", mScore);
+                extras.putString("USERNAME", mName);
+                intent.putExtras(extras);
                 GameActivity.this.startActivity(intent);
 
             }
@@ -138,6 +154,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
                 Intent intent = new Intent(GameActivity.this, HighScoreActivity.class);
                 Bundle extras = new Bundle();
                 extras.putInt("SCORE", mScore);
+                extras.putString("USERNAME", mName);
                 intent.putExtras(extras);
                 GameActivity.this.startActivity(intent);
             }

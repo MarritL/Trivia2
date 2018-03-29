@@ -15,6 +15,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
     Button ButtonFirstCategory;
     Button ButtonSecondCategory;
     int mScore;
+    String mUsername;
 
 
     @Override
@@ -25,9 +26,12 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
         Intent intent = getIntent();
         if (intent == null) {
             mScore = 0;
+            mUsername = "Anonymous";
         }
         else {
-            mScore = intent.getIntExtra("SCORE", 0);
+            Bundle extras = intent.getExtras();
+            mScore = extras.getInt("SCORE");
+            mUsername = extras.getString("USERNAME");
         }
 
         // get categories from API
@@ -75,7 +79,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
             Bundle extras = new Bundle();
             extras.putInt("SCORE", mScore);
             extras.putString("NUMBER", view.getTag().toString());
-            //intent.putExtra("NUMBER", view.getTag().toString());
+            extras.putString("USERNAME", mUsername);
             intent.putExtras(extras);
             CategoriesActivity.this.startActivity(intent);
 

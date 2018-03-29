@@ -30,6 +30,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
     // variables
     int mScore;
+    String mName;
     private DatabaseReference mDatabase;
     private RecyclerView mHighScoreRecyclerView;
     private FirebaseRecyclerAdapter adapter;
@@ -45,6 +46,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         mScore = extras.getInt("SCORE");
+        mName = extras.getString("USERNAME");
 
         // set up recyclerView
         mHighScoreRecyclerView = (RecyclerView) findViewById(R.id.RV_highscore);
@@ -59,7 +61,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
         // put new highScore in database
         mScore *= -1;       // to get descending order back from query save as negative in database
-        HighScore newHighScore = new HighScore(mScore);
+        HighScore newHighScore = new HighScore(mName, mScore);
         postHighScore(newHighScore);
 
         // read from database
@@ -232,6 +234,10 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(HighScoreActivity.this, CategoriesActivity.class);
+            Bundle extras = new Bundle();
+            extras.putInt("SCORE", 0);
+            extras.putString("USERNAME", mName);
+            intent.putExtras(extras);
             HighScoreActivity.this.startActivity(intent);
 
         }
@@ -247,6 +253,17 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    // on back pressed restart the game
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(HighScoreActivity.this, CategoriesActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("SCORE", 0);
+        extras.putString("USERNAME", mName);
+        intent.putExtras(extras);
+        HighScoreActivity.this.startActivity(intent);
     }
 
 

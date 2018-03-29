@@ -13,8 +13,9 @@ public class HighScore {
     }
 
     // constructor
-    public HighScore(int highScore) {
-        mName = "Anonymous" ;
+    public HighScore(String name, int highScore) {
+        //mName = "Anonymous" ;
+        mName = name;
         mHighScore = highScore;
     }
 
