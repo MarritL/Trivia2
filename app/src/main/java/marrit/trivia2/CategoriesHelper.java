@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CategoriesHelper {
+class CategoriesHelper {
 
     public interface Callback {
         void gotCategories(ArrayList<Category> categoryArrayList);
@@ -28,7 +28,7 @@ public class CategoriesHelper {
     private Callback mCallback;
 
     // constructor
-    public CategoriesHelper(Context context) {
+    CategoriesHelper(Context context) {
         mContext = context;
     }
 
@@ -51,7 +51,6 @@ public class CategoriesHelper {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        System.out.println(response);
                         ArrayList<Category> mCategoriesArray = new ArrayList<>();
 
                         try {
@@ -66,9 +65,6 @@ public class CategoriesHelper {
 
                                 mCategoriesArray.add(theCategory);
                             }
-
-
-
                         } catch (JSONException e) {
                             System.out.println("JSONException: " + e.getMessage());
                         }
@@ -90,15 +86,13 @@ public class CategoriesHelper {
 
     // random integer generator from
     // https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
-    public static int randInt(int min, int max) {
+    private static int randInt(int min, int max) {
 
         // Usually this can be a field rather than a method variable
         Random rand = new Random();
 
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
+        return rand.nextInt((max - min) + 1) + min;
     }
 }

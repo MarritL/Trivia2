@@ -14,19 +14,10 @@ import java.util.Collections;
 public class GameActivity extends AppCompatActivity implements TriviaHelper.Callback {
 
     // variables
-    TextView mTVQuestion;
-    TextView mUserScore;
-    TextView mUserName;
-    TextView mTVValue;
-    Question question;
-    Button mButtonAnswer1;
-    Button mButtonAnswer2;
-    Button mButtonAnswer3;
-    Button mButtonAnswer4;
-    String mCorrectAnswer;
-    int mScore;
-    String mScoreString;
-    String mName;
+    private Question question;
+    private String mCorrectAnswer;
+    private int mScore;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +36,10 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         triviaHelper.getQuestion(this, categoryNumber );
 
         // Initiate variables
-        mUserScore = findViewById(R.id.TV_userscore);
-        mUserScore.setText(String.valueOf(mScore));
-        mUserName = findViewById(R.id.TV_username);
-        mUserName.setText(mName);
-
+        TextView userScore = findViewById(R.id.TV_userscore);
+        userScore.setText(String.valueOf(mScore));
+        TextView userName = findViewById(R.id.TV_username);
+        userName.setText(mName);
     }
 
     @Override
@@ -57,12 +47,12 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
     public void gotQuestion(ArrayList<Question> questionArrayList, ArrayList<String> answersArrayList) {
 
         // Initiate variables
-        mTVQuestion = findViewById(R.id.TV_question);
-        mTVValue = findViewById(R.id.TV_value);
-        mButtonAnswer1 = findViewById(R.id.button_answer1);
-        mButtonAnswer2 = findViewById(R.id.button_answer2);
-        mButtonAnswer3 = findViewById(R.id.button_answer3);
-        mButtonAnswer4 = findViewById(R.id.button_answer4);
+        TextView TVQuestion = findViewById(R.id.TV_question);
+        TextView TVValue = findViewById(R.id.TV_value);
+        Button buttonAnswer1 = findViewById(R.id.button_answer1);
+        Button buttonAnswer2 = findViewById(R.id.button_answer2);
+        Button buttonAnswer3 = findViewById(R.id.button_answer3);
+        Button buttonAnswer4 = findViewById(R.id.button_answer4);
 
         // check if there are at least 4 answers in list
         if (questionArrayList.size() < 4) {
@@ -78,8 +68,8 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
         // Display question and it's value
         question = questionArrayList.get(0);
-        mTVQuestion.setText(question.getQuestion());
-        mTVValue.setText(String.valueOf(question.getValue()));
+        TVQuestion.setText(question.getQuestion());
+        TVValue.setText(String.valueOf(question.getValue()));
         mCorrectAnswer = question.getCorrectAnswer();
 
         // create list with random answers (include the right answer)
@@ -96,28 +86,27 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         Collections.shuffle(displayAnswersArrayList);   // shuffle again
 
         // Display answers
-        mButtonAnswer1.setText(displayAnswersArrayList.get(0));
-        mButtonAnswer1.setTag(displayAnswersArrayList.get(0));
-        mButtonAnswer2.setText(displayAnswersArrayList.get(1));
-        mButtonAnswer2.setTag(displayAnswersArrayList.get(1));
-        mButtonAnswer3.setText(displayAnswersArrayList.get(2));
-        mButtonAnswer3.setTag(displayAnswersArrayList.get(2));
-        mButtonAnswer4.setText(displayAnswersArrayList.get(3));
-        mButtonAnswer4.setTag(displayAnswersArrayList.get(3));
+        buttonAnswer1.setText(displayAnswersArrayList.get(0));
+        buttonAnswer1.setTag(displayAnswersArrayList.get(0));
+        buttonAnswer2.setText(displayAnswersArrayList.get(1));
+        buttonAnswer2.setTag(displayAnswersArrayList.get(1));
+        buttonAnswer3.setText(displayAnswersArrayList.get(2));
+        buttonAnswer3.setTag(displayAnswersArrayList.get(2));
+        buttonAnswer4.setText(displayAnswersArrayList.get(3));
+        buttonAnswer4.setTag(displayAnswersArrayList.get(3));
 
         // attach listeners on buttons
-        mButtonAnswer1.setOnClickListener(new checkAnswer());
-        mButtonAnswer2.setOnClickListener(new checkAnswer());
-        mButtonAnswer3.setOnClickListener(new checkAnswer());
-        mButtonAnswer4.setOnClickListener(new checkAnswer());
+        buttonAnswer1.setOnClickListener(new checkAnswer());
+        buttonAnswer2.setOnClickListener(new checkAnswer());
+        buttonAnswer3.setOnClickListener(new checkAnswer());
+        buttonAnswer4.setOnClickListener(new checkAnswer());
 
     }
 
+    // handle error
     @Override
     public void gotError(String message) {
-
         Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT).show();
-
     }
 
     // when button clicked check if answer is right
@@ -144,7 +133,6 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
                 extras.putString("USERNAME", mName);
                 intent.putExtras(extras);
                 GameActivity.this.startActivity(intent);
-
             }
             else {
                 // do something else
@@ -158,7 +146,6 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
                 intent.putExtras(extras);
                 GameActivity.this.startActivity(intent);
             }
-
         }
     }
 

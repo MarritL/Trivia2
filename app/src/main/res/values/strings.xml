@@ -7,8 +7,6 @@
     <string name="start">Start</string>
 
     <!-- Strings related to GameActivity -->
-    <string name="next_question">Next</string>
-    <string name="hint_answer">Your answer</string>
     <string name="error_loading">Wait for question</string>
     <string name="for_points">For</string>
     <string name="points">points:</string>
@@ -17,7 +15,6 @@
     <string name="choose_cat">Choose your category</string>
 
     <!-- Strings related to HighScoreActivity -->
-    <string name="empty_list">There are no highscores yet</string>
     <string name="highscore">Highscore</string>
     <string name="restart">Play Again!</string>
 

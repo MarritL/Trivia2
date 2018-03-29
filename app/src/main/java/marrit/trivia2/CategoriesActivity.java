@@ -8,14 +8,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class CategoriesActivity extends AppCompatActivity implements CategoriesHelper.Callback{
 
-    Button ButtonFirstCategory;
-    Button ButtonSecondCategory;
-    int mScore;
-    String mUsername;
+    private int mScore;
+    private String mUsername;
 
 
     @Override
@@ -44,30 +42,27 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
     public void gotCategories(ArrayList<Category> categoryArrayList) {
 
         // Initiate variables
-        ButtonFirstCategory = (Button) findViewById(R.id.button_category1);
-        ButtonSecondCategory = (Button) findViewById(R.id.button_category2);
+        Button buttonFirstCategory = findViewById(R.id.button_category1);
+        Button buttonSecondCategory = findViewById(R.id.button_category2);
 
         // Get categories
         Category firstCategory = categoryArrayList.get(0);
         Category secondCategory = categoryArrayList.get(1);
 
         // Set values
-        ButtonFirstCategory.setText(firstCategory.getCategory());
-        ButtonFirstCategory.setTag(firstCategory.getNumber());
-        ButtonSecondCategory.setText(secondCategory.getCategory());
-        ButtonSecondCategory.setTag(secondCategory.getNumber());
+        buttonFirstCategory.setText(firstCategory.getCategory());
+        buttonFirstCategory.setTag(firstCategory.getNumber());
+        buttonSecondCategory.setText(secondCategory.getCategory());
+        buttonSecondCategory.setTag(secondCategory.getNumber());
 
         // set on click listeners
-        ButtonFirstCategory.setOnClickListener(new onButtonClickListener());
-        ButtonSecondCategory.setOnClickListener(new onButtonClickListener());
-
+        buttonFirstCategory.setOnClickListener(new onButtonClickListener());
+        buttonSecondCategory.setOnClickListener(new onButtonClickListener());
     }
 
     @Override
     public void gotError(String message) {
-
         Toast.makeText(CategoriesActivity.this, message, Toast.LENGTH_SHORT).show();
-
     }
 
     class onButtonClickListener implements View.OnClickListener {
@@ -85,5 +80,4 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesH
 
         }
     }
-
 }

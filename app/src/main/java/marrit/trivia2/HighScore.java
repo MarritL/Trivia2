@@ -1,8 +1,6 @@
 package marrit.trivia2;
 
-import java.util.UUID;
-
-public class HighScore {
+class HighScore {
 
     // variables
     private String mName;
@@ -13,15 +11,13 @@ public class HighScore {
     }
 
     // constructor
-    public HighScore(String name, int highScore) {
-        //mName = "Anonymous" ;
+    HighScore(String name, int highScore) {
         mName = name;
         mHighScore = highScore;
     }
 
 
     // getters and setters
-
     public String getName() {
         return mName;
     }

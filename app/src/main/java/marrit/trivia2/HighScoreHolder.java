@@ -7,12 +7,11 @@ import android.widget.TextView;
 
 public class HighScoreHolder extends RecyclerView.ViewHolder {
 
-    TextView mTVName;
-    TextView mTVScore;
-    HighScore mHighScore;
+    private final TextView mTVName;
+    private final TextView mTVScore;
 
     // constructor
-    public HighScoreHolder(LayoutInflater inflater, ViewGroup parent) {
+    HighScoreHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.list_item_highscore, parent, false));
 
         mTVName = itemView.findViewById(R.id.TV_name);
@@ -22,16 +21,12 @@ public class HighScoreHolder extends RecyclerView.ViewHolder {
     // bind the data to the viewHolder
     public void bind(HighScore highScore) {
 
-        mHighScore = highScore;
-
         // make score positive again (was needed for ordering the query)
-        int score = mHighScore.getHighScore();
+        int score = highScore.getHighScore();
         score *= -1;
 
         // display
         mTVScore.setText(String.valueOf(score));
-        mTVName.setText(mHighScore.getName());
-
+        mTVName.setText(highScore.getName());
     }
-
 }

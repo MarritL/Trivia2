@@ -9,10 +9,7 @@ import android.widget.EditText;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    //variables
-    Button mButtonStart;
-    EditText mETUsername;
-    String mUsername;
+    private EditText mETUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +17,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         // Initiate variables
-        mButtonStart = findViewById(R.id.button_start);
+        Button buttonStart = findViewById(R.id.button_start);
         mETUsername = findViewById(R.id.ET_username);
 
         // Attach listener
-        mButtonStart.setOnClickListener(new startListener());
-
+        buttonStart.setOnClickListener(new startListener());
     }
 
     // start game on click
@@ -36,11 +32,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
             // check if user gave username
             System.out.println("WELCOMACTIVITY: " + mETUsername.getText().toString());
+            String username;
             if (!mETUsername.getText().toString().equals("")) {
-                mUsername = mETUsername.getText().toString();
+                username = mETUsername.getText().toString();
             }
             else{
-                mUsername = "Anonymous";
+                username = "Anonymous";
             }
 
             // start game with username and startscore of 0 points
@@ -48,11 +45,9 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(WelcomeActivity.this, CategoriesActivity.class);
             Bundle extras = new Bundle();
             extras.putInt("SCORE", mScore);
-            extras.putString("USERNAME", mUsername);
+            extras.putString("USERNAME", username);
             intent.putExtras(extras);
             WelcomeActivity.this.startActivity(intent);
-
-
         }
     }
 }
