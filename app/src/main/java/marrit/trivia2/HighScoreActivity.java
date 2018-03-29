@@ -31,7 +31,6 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
     int mScore;
     private DatabaseReference mDatabase;
     private RecyclerView mHighScoreRecyclerView;
-    private ArrayList<HighScore> mHighScoreArrayList;
     private FirebaseRecyclerAdapter adapter;
 
 
@@ -49,9 +48,6 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         mHighScoreRecyclerView = (RecyclerView) findViewById(R.id.RV_highscore);
         mHighScoreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // TODO: display recyclerView
-
-
         // initiate variables
         mDatabase = FirebaseDatabase.getInstance().getReference().child("highScores");
 
@@ -60,7 +56,9 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         postHighScore(newHighScore);
 
         // read from database
-        Query myHighScoresQuery = mDatabase.orderByChild("highScore").limitToFirst(20);
+        readFromDatabase();
+
+        /*Query myHighScoresQuery = mDatabase.orderByChild("highScore").limitToFirst(20);
 
         FirebaseRecyclerOptions<HighScore> options =
                 new FirebaseRecyclerOptions.Builder<HighScore>()
@@ -99,6 +97,9 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
                 // your UI to display an error message to the user.
                 // ...
 
+                // Failed to read value
+                Log.w("HIGHSCOREACTIVITY", "Failed to read value.", e.toException());
+
             }
 
 
@@ -108,7 +109,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
         };
 
-        /*myHighScoresQuery.addValueEventListener(new ValueEventListener() {
+        *//*myHighScoresQuery.addValueEventListener(new ValueEventListener() {
         //mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,12 +126,12 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
                     Log.d("HIGHSCOREACTIVITY", "List is: " + highScoreArrayList);
                     System.out.println(highScore.getHighScore());
 
-                    *//*ArrayList<Integer> scoresArrayList = new ArrayList<>();
+                    *//**//*ArrayList<Integer> scoresArrayList = new ArrayList<>();
                     ArrayList<String> namesArrayList = new ArrayList<>();
                     ListIterator iterator = highScoreArrayList.listIterator();
                     while (iterator.hasNext()){
                         scoresArrayList.add(highScore.getHighScore());
-                        namesArrayList.add(highScore.getName());*//*
+                        namesArrayList.add(highScore.getName());*//**//*
                     //}
 
 
@@ -145,13 +146,12 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
                 // Failed to read value
                 Log.w("HIGHSCOREACTIVITY", "Failed to read value.", error.toException());
             }
-        });*/
+        });*//*
 
-        mHighScoreRecyclerView.setAdapter(adapter);
-
-
+        mHighScoreRecyclerView.setAdapter(adapter);*/
 
     }
+
 
 
     @Override
@@ -169,6 +169,54 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         mDatabase.push().setValue(highScore);
 
 
+    }
+
+    // used FireBase opensource software from:
+    // https://firebaseopensource.com/projects/firebase/firebaseui-android/
+    void readFromDatabase() {
+        Query myHighScoresQuery = mDatabase.orderByChild("highScore").limitToFirst(100);
+
+        FirebaseRecyclerOptions<HighScore> options =
+                new FirebaseRecyclerOptions.Builder<HighScore>()
+                        .setQuery(myHighScoresQuery, HighScore.class).build();
+
+        adapter = new FirebaseRecyclerAdapter<HighScore, HighScoreHolder>(options) {
+
+            // called when new viewHolder is needed
+            @Override
+            public HighScoreHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+
+                return new HighScoreHolder(layoutInflater, parent);
+            }
+
+            // called when a viewHolder needs to display a HighScore
+            @Override
+            protected void onBindViewHolder(HighScoreHolder holder, int position, HighScore model) {
+                holder.bind(model);
+
+            }
+
+            @Override
+            public void onDataChanged() {
+                // Called each time there is a new data snapshot. You may want to use this method
+                // to hide a loading spinner or check for the "no documents" state and update your UI.
+                // ...
+
+            }
+
+            @Override
+            public void onError(DatabaseError e) {
+                // Called when there is an error getting data. You may want to update
+                // your UI to display an error message to the user.
+                // ...
+
+                // Failed to read value
+                Log.w("HIGHSCOREACTIVITY", "Failed to read value.", e.toException());
+
+            }
+        };
+        mHighScoreRecyclerView.setAdapter(adapter);
     }
 
     @Override
