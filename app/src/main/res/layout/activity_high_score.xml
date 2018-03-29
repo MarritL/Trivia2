@@ -16,16 +16,23 @@
         android:layout_marginBottom="16dp"
         android:textSize="20sp"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RV_highscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<ListView
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"/>-->
 
-    <TextView
+    <!--<TextView
         android:id="@+id/android:empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="@string/empty_list"/>
+        android:text="@string/empty_list"/>-->
 
 
 </LinearLayout>
