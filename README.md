@@ -10,4 +10,4 @@ with their earned points. These points are contained in a leaderboard, which is 
 ![ScreenShot](https://github.com/MarritL/MarritLeenstra-pset5/blob/master/doc/Screenshot.png)
 
 ## Better Code Hub
-<img src='https://bettercodehub.com/edge/badge/MarritL/MarritLeenstra-pset5?branch=master'>
+<img src='https://bettercodehub.com/edge/badge/MarritL/Trivia2?branch=master'>
